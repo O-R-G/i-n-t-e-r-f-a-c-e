@@ -1,8 +1,5 @@
 /* 
-    badge.js
-    
-    generic, should be replaced per site
-    to draw and update the badge
+    badge.js    
 */
 
 var canvas,
@@ -15,6 +12,8 @@ var centerX,
     centerY,
     radius,
     direction;
+var rad; 
+var hands; 
 var counter;
 
 function badge_init() {
@@ -34,24 +33,46 @@ function badge_init() {
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
 
+    // render
+    context.fillStyle = "#FFFFFF";
+    context.lineWidth = 8;
+    context.strokeStyle = '#60F';
+    radius = canvas.width / 2.25;
+
+    // current time
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
+
+    rad = {
+        h: (((h % 12) + m / 60.0) / 6.0) * Math.PI - (Math.PI / 2.0),
+        m: (m + s / 60.0) / 30.0 * Math.PI - (Math.PI / 2.0),
+        s: s / 30.0 * Math.PI - (Math.PI / 2.0)
+    };
+    hands = {
+        h: radius * 0.5,
+        m: radius * 0.9,
+        s: radius * 0.95
+    };
+
     // debug
+    /*
     console.log('computed_width = ' + computed_width);
     console.log('computed_height = ' + computed_height);
     console.log('canvas.width = ' + canvas.width);
     console.log('canvas.height = ' + canvas.height);
     console.log('centerX = ' + centerX);
     console.log('centerY = ' + centerY);
+    */
+    console.log(h + ":" + m + ":" + s);
+    console.log(rad.h + ":" + rad.m + ":" + rad.s);
 
-    context.fillStyle = "#FFFFFF";
-    context.lineWidth = 8;
-    context.strokeStyle = '#00F';
+    // updates
     counter = 0;
-    radius = canvas.width / 2.25;
-    // frames = 60;
     frames = 360;
     step = 2.0 * Math.PI / frames;
-    // delay = 25; 
-    delay = 10; 
+    delay = 5; // ms, factor of 1000 locks seconds
     direction = 1;
     badge_animate();
 }
@@ -61,13 +82,41 @@ function badge_animate() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     var thisStep = (counter % frames) * step * direction;
 
-    // change direction? in process
-    // if (thisStep == 0) { direction = !direction; }
-    // console.log(thisStep);
-
+    // face
     context.beginPath();
-    context.arc(centerX, centerY, radius, 0, thisStep, false);
+    context.arc(centerX, centerY, radius, 0, 2.0*Math.PI, false);
     context.stroke();
+
+    // arc
+    // get *now* angle 
+    // cos = x sin = y
+
+    // eye (h)
+    context.beginPath();
+    // context.arc(centerX*.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
+    context.moveTo(centerX*.5, centerY*.5);
+    context.lineTo(radius*.15, radius*.15);
+    context.stroke();
+
+    // eye (m)
+    context.beginPath();
+    context.arc(centerX*1.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
+    context.stroke();
+
+    // mouth (ms)
+    context.beginPath();
+    context.arc(centerX, centerY*1.35, radius/5, 0, thisStep, false);
+    context.stroke();
+
+    // hands
+    for(k in rad) {
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.lineTo(Math.cos(rad[k]) * hands[k] + centerX,
+                       Math.sin(rad[k]) * hands[k] + centerY);
+        context.stroke();
+    }
+
     t = setTimeout('badge_animate()', delay);
 }
 
