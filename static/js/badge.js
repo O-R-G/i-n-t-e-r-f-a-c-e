@@ -94,7 +94,7 @@ function badge_animate() {
     // eye (h)
     context.beginPath();
     // context.arc(centerX*.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
-    context.moveTo(centerX*.5, centerY*.5);
+    context.moveTo(centerX*.25, centerY*.25);
     context.lineTo(radius*.15, radius*.15);
     context.stroke();
 
@@ -108,6 +108,7 @@ function badge_animate() {
     context.arc(centerX, centerY*1.35, radius/5, 0, thisStep, false);
     context.stroke();
 
+/*
     // hands
     for(k in rad) {
         context.beginPath();
@@ -116,6 +117,7 @@ function badge_animate() {
                        Math.sin(rad[k]) * hands[k] + centerY);
         context.stroke();
     }
+*/
 
     t = setTimeout('badge_animate()', delay);
 }
