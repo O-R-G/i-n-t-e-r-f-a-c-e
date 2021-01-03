@@ -6,20 +6,20 @@
 *~
 
 # media
-# *.gif
-# *.jpg
-# *.jpeg
-# *.png
-# *.pdf
-# *.svg
-# *.tif
-# *.tiff
-# *.mp4
+*.gif
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.svg
+*.tif
+*.tiff
+*.mp4
 
 # macos
 .DS_Store
 
 # bash 
-backup_
-sync_
+backup
+sync
 log
