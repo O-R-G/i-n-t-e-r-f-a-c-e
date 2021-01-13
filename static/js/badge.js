@@ -103,6 +103,14 @@ function badge_animate() {
     context.arc(centerX*1.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
     context.stroke();
 
+/*
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.lineTo(Math.cos(rad['m']) * hands['m'] + centerX,
+                       Math.sin(rad['m']) * hands['m'] + centerY);
+        context.stroke();
+*/
+
     // mouth (ms)
     context.beginPath();
     context.arc(centerX, centerY*1.35, radius/5, 0, thisStep, false);
