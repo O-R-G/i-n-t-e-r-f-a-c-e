@@ -35,7 +35,7 @@ canvas {
 
 a:link,
 a:visited {
-    color: #60F;
+    color: #00F;
     text-decoration: none;
 }
 
@@ -116,6 +116,10 @@ blockquote {
 /* use margin instead of <br> */
 #columns div {
     margin-bottom: 22px;
+}
+
+#columns .break {
+    break-after: column;
 }
 
 #notes {

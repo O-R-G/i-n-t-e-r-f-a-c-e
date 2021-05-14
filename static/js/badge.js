@@ -51,8 +51,8 @@ function badge_init() {
         s: s / 30.0 * Math.PI - (Math.PI / 2.0)
     };
     hands = {
-        h: radius * 0.5,
-        m: radius * 0.9,
+        h: radius * 0.75,
+        m: radius * 1.25,
         s: radius * 0.95
     };
 
@@ -91,41 +91,27 @@ function badge_animate() {
     // get *now* angle 
     // cos = x sin = y
 
-    // eye (h)
-    context.beginPath();
-    // context.arc(centerX*.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
-    context.moveTo(centerX*.25, centerY*.25);
-    context.lineTo(radius*.15, radius*.15);
-    context.stroke();
-
     // eye (m)
+    var length = .75;
+    var x_ = Math.cos(rad['m']) * hands['m'] + centerX;
+    var y_ = Math.sin(rad['m']) * hands['m'] + centerY;
     context.beginPath();
-    context.arc(centerX*1.5, centerY*.5, radius/15, 0, 2.0*Math.PI, false);
+    context.moveTo(x_, y_);
+    context.lineTo(Math.cos(rad['m']) * hands['m'] * length + centerX,  
+                   Math.sin(rad['m']) * hands['m'] * length + centerY);
     context.stroke();
 
-/*
-        context.beginPath();
-        context.moveTo(centerX, centerY);
-        context.lineTo(Math.cos(rad['m']) * hands['m'] + centerX,
-                       Math.sin(rad['m']) * hands['m'] + centerY);
-        context.stroke();
-*/
+    // eye (h)
+    var x_ = Math.cos(rad['h']) * hands['h'] + centerX;
+    var y_ = Math.sin(rad['h']) * hands['h'] + centerY;
+    context.beginPath();
+    context.arc(x_, y_, radius/15, 0, 2.0*Math.PI, false);
+    context.stroke();
 
     // mouth (ms)
     context.beginPath();
     context.arc(centerX, centerY*1.35, radius/5, 0, thisStep, false);
     context.stroke();
-
-/*
-    // hands
-    for(k in rad) {
-        context.beginPath();
-        context.moveTo(centerX, centerY);
-        context.lineTo(Math.cos(rad[k]) * hands[k] + centerX,
-                       Math.sin(rad[k]) * hands[k] + centerY);
-        context.stroke();
-    }
-*/
 
     t = setTimeout('badge_animate()', delay);
 }
