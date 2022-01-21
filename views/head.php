@@ -29,7 +29,7 @@ if($uu->id) {
         $uu->id = -1; 
 
 ?><!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title><? echo $site; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,7 +74,7 @@ if($uu->id) {
 			    if($n['o']['id'] != $uu->id) {
     			    ?><a href="<? echo $host.$n['url']; ?>"><?
 				    echo $n['o']['name1'];
-                    if ($n['o']['url'] !== "about")
+                    if ($n['o']['deck'] && !ctype_space($n['o']['deck']))
     				    echo ', ' . $n['o']['deck'];
 	    		    ?></a><?
 			    }
