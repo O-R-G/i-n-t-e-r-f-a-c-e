@@ -6,20 +6,18 @@
 *~
 
 # media
-# *.gif
-# *.jpg
-# *.jpeg
-# *.png
-# *.pdf
-# *.svg
-# *.tif
-# *.tiff
-# *.mp4
+media/*.*
 
 # macos
 .DS_Store
 
 # bash 
-backup
-sync
-log
+static/bash/backup*
+!static/bash/backup_
+static/bash/sync*
+!static/bash/sync_
+static/bash/logs/*
+!static/bash/logs/.gitkeep
+
+# php composer
+static/php/vendor
